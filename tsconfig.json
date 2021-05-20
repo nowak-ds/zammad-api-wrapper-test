@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "lib": [
+      "DOM",
+      "ES6"
+    ],
+    "strict": true,
+    "typeRoots": [
+      "./typings"
+    ],
+    "outDir": "./build",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true
+  },
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
+}

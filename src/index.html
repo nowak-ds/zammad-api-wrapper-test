@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Zammad API wrapper tests</title>
+</head>
+<body>
+    <label for="object-input">Zammad object:</label><br>
+    <input type="text" id="object-input" value="ticket.title"><br>
+
+    <label for="operator-input">Operator:</label><br>
+    <input type="text" id="operator-input" value="contains"><br>
+
+    <label for="value-input">Value:</label><br>
+    <input type="text" id="value-input" value="Test"><br><br>
+
+    <button onclick="getTicket()">Get Ticket</button><br><br>
+
+
+    <label for="url-input">http://213.171.210.172:5000/</label>
+    <input type="text" id="url-input" value="tickets">
+    <select id="method-select">
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+      </select>
+      <br>
+    <button onclick="sendRequest()">Request</button><br><br>
+
+
+    <script src="../build/ZammadClient.js"></script>
+    <script src="../build/main.js"></script>
+</body>
+</html>
