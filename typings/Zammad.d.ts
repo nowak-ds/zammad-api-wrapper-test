@@ -7,8 +7,55 @@ declare module Zammad {
         private __curUsers;
         private __curOrganizations;
         private __curTicketArticles;
-        setAuthHeader(bearerToken: string): void;
-        getTickets(conditions?: IConditions): Promise<ITicket[]>;
+        private __setAuthHeader;
+        getTickets(req: Request, conditions?: IConditions): Promise<ITicket[]>;
+        /**
+         * Get a specific answer from a specific knowledge base.
+         * @param req The http request.
+         * @param id The id of the answer.
+         * @param kbId The id of the knowlege base.
+         * @returns A promise which will resolve with the answer.
+         */
+        getAnswer(req: Request, id: number, kbId: number): Promise<IAnswer>;
+        initKnowledgeBases(req: Request): Promise<IAssets>;
+        /**
+         * Get all categories from a specific knowledge base.
+         * @param assets The assets of all knowledge bases.
+         * @param kbId The id of the knowledge base.
+         * @returns The categories of the specific knowledge base.
+         */
+        getAllCategories(assets: IAssets, kbId: number): ICategory[];
+        /**
+         * Get all tickets from a specific knowledge base in an hierarchical order.
+         * @param assets The assets of all knowledge bases.
+         * @param kbId The id of the knowledge base.
+         * @param localeId If provided the translation for this locale will be added as well.
+         * @returns The categories of the specific knowledge base in an hierarchical order.
+         */
+        getAllCategoriesHierarchical(assets: IAssets, kbId: number, localeId: number | null): ICategoryHierarchy[];
+        /**
+         * Creates the hierarchy for a category
+         * @param assets The assets of all knowledge bases.
+         * @param hierarchy The parent category.
+         * @param categories The categories which are need to be sorted into the hierarchy.
+         * @param localeId If provided the translation for this locale will be added as well.
+         */
+        private __createCategoryHierarchy;
+        /**
+         * Checks if a category has any children.
+         * @param cat The category to be checked.
+         * @param categories The categories which are need to be sorted into the hierarchy.
+         * @returns True if the category has children, otherwise false.
+         */
+        private __categoryHasChildren;
+        /**
+         * Get the translation for a certain category.
+         * @param assets The assets of all knowledge bases.
+         * @param category The category whose translation should be returned.
+         * @param localeId The id of the locale.
+         * @returns The translation of the category; if none is found the function will return null.
+         */
+        getCategoryTranslation(assets: IAssets, category: ICategory, localeId: number): ICategoryTranslation;
         private __getUsers;
         private __getCurrentUser;
         private __getOrganizations;
@@ -134,6 +181,59 @@ declare module Zammad {
         created_at: Date;
         updated_at: Date;
         attachments: object;
+    }
+    interface IAnswer {
+        id: number;
+        assets: IAssets;
+    }
+    interface IAssets {
+        Group: {
+            [index: number]: IGroup;
+        };
+        KnowledgeBase: object;
+        KnowledgeBaseAnswer: object;
+        KnowledgeBaseAnswerTranslation: object;
+        KnowledgeBaseCategory: {
+            [index: number]: ICategory;
+        };
+        KnowledgeBaseCategoryTranslation: {
+            [index: number]: ICategoryTranslation;
+        };
+        KnowledgeBaseLocale: object;
+        KnowledgeBaseTranslation: object;
+        Role: {
+            [index: number]: IRole;
+        };
+        Ticket: {
+            [index: number]: ITicket;
+        };
+        User: {
+            [index: number]: IUser;
+        };
+    }
+    interface ICategory {
+        answer_ids: number[];
+        category_icon: string;
+        child_ids: number[];
+        created_at: Date;
+        id: number;
+        knowledge_base_id: number;
+        parent_id: number | null;
+        position: number;
+        translation_ids: number[];
+        updated_at: Date;
+    }
+    interface ICategoryHierarchy extends ICategory {
+        children?: ICategoryHierarchy[];
+        translation?: ICategoryTranslation;
+    }
+    interface ICategoryTranslation {
+        category_id: number;
+        created_at: Date;
+        id: number;
+        kb_locale_id: number;
+        title: string;
+        updated_at: Date;
     }
     interface IRole {
         id: number;

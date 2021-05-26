@@ -17,10 +17,13 @@
     <input type="text" id="value-input" value="Test"><br><br>
 
     <button onclick="getTicket()">Get Ticket</button><br><br>
+    
+    <input id="locale-id-input" type="number" style="width:40px"></input>
+    <button onclick="getCategories()">Get Categories</button><br><br>
 
 
-    <label for="url-input">http://213.171.210.172:5000/</label>
-    <input type="text" id="url-input" value="tickets">
+    <label id="url-input-label" for="url-input"></label>
+    <input type="text" id="url-input" value="categories?hierarchical=true&kbId=1" style="width:400px">
     <select id="method-select">
         <option value="GET">GET</option>
         <option value="POST">POST</option>
