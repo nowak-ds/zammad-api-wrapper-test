@@ -28,9 +28,34 @@ function getTicket() {
 	});
 }
 
-function getCategories() {	
-	let localeId = Number($('#locale-id-input').val());
-	zammadClient.getCategories(localeId);
+function getLocaleId() {
+	return Number($('#locale-id-input').val());
+}
+
+function getKbId() {
+	return Number($('#kb-id-input').val());
+}
+
+function getAnswerId() {
+	return Number($('#answer-id-input').val());
+}
+
+function getCategories() {
+	zammadClient.getCategories(getLocaleId());
+}
+
+function getTicketDetails() {
+	let knowledgeBaseId = getKbId();
+	let answerId = getAnswerId();
+	let urlExt = `answers/${answerId}/details?kbId=${knowledgeBaseId}`;
+	console.log('Send request to url: ' + baseUrl + urlExt)
+	$.ajax(baseUrl + urlExt, {
+		type: 'GET',
+		headers: {
+			'Authorization': auth
+		},
+		success: function (res: Zammad.ITicket[]) { console.log('Result\n', res); }
+	});
 }
 
 function sendRequest() {
