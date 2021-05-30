@@ -1,6 +1,6 @@
 /// <reference path="../node_modules/@types/jquery/index.d.ts" />
-//let baseUrl = "http://213.171.210.172:5000/";
-let baseUrl = "http://127.0.0.1:5008/";
+let baseUrl = "http://213.171.210.172:5000/";
+//let baseUrl = "http://127.0.0.1:5008/";
 let auth = 'Bearer gcUYgXsmjXzUci5USmKpVHlNkVs_IO-T18ikJ_C0yR40Bo7zGR4EXwqMtQaTsfp7';
 
 let zammadClient = new ZammadClient(baseUrl, auth);
